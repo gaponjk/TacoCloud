@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Taco Cloud</title>
+    <link rel="stylesheet" th:href="@{/styles.css}"/>
+</head>
+<body>
+<form method="POST" th:action="@{/orders}" th:object="${tacoOrder}">
+    <h1>Order your creations!</h1>
+
+    <img alt="Taco png logo" th:src="@{/images/TacoCloud.png}"/>
+
+    <h3>Your tacos in this order:</h3>
+    <a id="another" th:href="@{/design}">Design another taco</a>
+    <ul>
+        <li th:each="taco : *{tacos}">
+            <span th:text="${taco.name}">taco name</span><br/>
+        </li>
+    </ul>
+
+    <h3>Deliver my taco masterpieces to...</h3>
+    <label>Name:
+        <input th:field="*{deliveryName}" type="text"/>
+    </label><br/>
+
+    <label>City name:
+        <input th:field="*{deliveryCity}" type="text"/>
+    </label><br/>
+
+    <label>State name:
+        <input th:field="*{deliveryState}" type="text"/>
+    </label><br/>
+
+    <label>Street address:
+        <input th:field="*{deliveryStreet}" type="text"/>
+    </label><br/>
+
+    <label>Zip:
+        <input th:field="*{deliveryZip}" type="text"/>
+    </label><br/>
+
+    <h3>Here's how I'll pay...</h3>
+    <label>Credit Card #:
+        <input th:field="*{ccNumber}" type="text"/>
+        <span class="validationError"
+              th:if="${#fields.hasErorrs('ccNumber')}"
+              th:errors="*{ccNumber}">CC Num Error</span>
+    </label><br/>
+
+    <label>Expiration date:
+        <input th:field="*{ccExpiration}" type="text"/>
+    </label><br/>
+
+    <label>CVV:
+        <input th:field="*{ccCVV}" type="text"/>
+    </label><br/>
+    <button type="submit">Submit order</button>
+</form>
+</body>
+</html>
