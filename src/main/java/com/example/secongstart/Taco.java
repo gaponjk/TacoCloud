@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class Taco {
 
     @NotNull
-    @Size(min = 5, message = "Name must be at least 5 digits long")
+    @Size(min = 5, message = "Name must be at least 5 letters long")
     private String name;
 
     @NotNull

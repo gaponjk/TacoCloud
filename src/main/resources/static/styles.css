@@ -120,3 +120,18 @@ button[type="submit"]:hover, button:hover {
 button[type="submit"]:active, button:active {
     transform: scale(0.98);
 }
+
+/* Сообщения об ошибках валидации */
+.validationError {
+    display: block;
+    color: #dc2626; /* Яркий красный оттенок */
+    background-color: #fef2f2; /* Нежный красноватый фон */
+    border: 1px solid #fecaca; /* Аккуратная рамка */
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-top: 6px;
+    margin-bottom: 8px;
+    max-width: 400px;
+}
