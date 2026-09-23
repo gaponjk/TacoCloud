@@ -3,6 +3,8 @@ package com.example.secongstart.web;
 import com.example.secongstart.TacoOrder;
 import com.example.secongstart.data.OrderRepository;
 import jakarta.validation.Valid;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
@@ -12,35 +14,32 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-
 @Slf4j
 @Controller
 @RequestMapping("/orders")
 @SessionAttributes("tacoOrder")
 public class OrderController {
-    private final OrderRepository orderRepo;
+  private final OrderRepository orderRepo;
 
-    public OrderController(OrderRepository orderRepo) {
-        this.orderRepo = orderRepo;
+  public OrderController(OrderRepository orderRepo) {
+    this.orderRepo = orderRepo;
+  }
+
+  @GetMapping("/current")
+  public String orderForm() {
+    return "orderForm";
+  }
+
+  @PostMapping
+  public String processOrder(@Valid TacoOrder order, Errors errors, SessionStatus sessionStatus) {
+    if (errors.hasErrors()) {
+      return "orderForm";
     }
+    order.setPlacedAt(LocalDateTime.now(ZoneId.systemDefault()));
+    orderRepo.save(order);
+    log.info("Order submitted: {}", order);
+    sessionStatus.setComplete();
 
-    @GetMapping("/current")
-    public String orderForm() {
-        return "orderForm";
-    }
-
-    @PostMapping
-    public String processOrder(@Valid TacoOrder order, Errors errors, SessionStatus sessionStatus) {
-        if (errors.hasErrors()) {
-            return "orderForm";
-        }
-        order.setPlacedAt(LocalDateTime.now(ZoneId.systemDefault()));
-        orderRepo.save(order);
-        log.info("Order submitted: {}", order);
-        sessionStatus.setComplete();
-
-        return "redirect:/";
-    }
+    return "redirect:/";
+  }
 }

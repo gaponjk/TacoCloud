@@ -1,25 +1,27 @@
 package com.example.secongstart;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Table;
-
-import java.io.Serializable;
+import lombok.NoArgsConstructor;
 
 @Data
-@Table
-public class Ingredient implements Serializable {
-    @Id
-    private final String id;
+@Entity
+@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PRIVATE, force = true)
+public class Ingredient {
+  @Id private final String id;
 
-    private final String name;
-    private final Type type;
+  private final String name;
+  private final Type type;
 
-    public enum Type {
-        WRAP,
-        PROTEIN,
-        VEGGIES,
-        CHEESE,
-        SAUCE
-    }
+  public enum Type {
+    WRAP,
+    PROTEIN,
+    VEGGIES,
+    CHEESE,
+    SAUCE
+  }
 }

@@ -12,15 +12,15 @@ import org.springframework.stereotype.Component;
 @EqualsAndHashCode
 public class IngredientByIdConverter implements Converter<String, Ingredient> {
 
-    private final IngredientRepository ingredientRepo;
+  private final IngredientRepository ingredientRepo;
 
-    @Autowired
-    public IngredientByIdConverter(IngredientRepository ingredientRepo) {
-        this.ingredientRepo = ingredientRepo;
-    }
+  @Autowired
+  public IngredientByIdConverter(IngredientRepository ingredientRepo) {
+    this.ingredientRepo = ingredientRepo;
+  }
 
-    @Override
-    public Ingredient convert(@NonNull String id) {
-        return ingredientRepo.findById(id).orElse(null);
-    }
+  @Override
+  public Ingredient convert(@NonNull String id) {
+    return ingredientRepo.findById(id).orElse(null);
+  }
 }
