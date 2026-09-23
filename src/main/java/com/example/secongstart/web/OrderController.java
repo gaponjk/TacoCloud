@@ -12,12 +12,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+
 @Slf4j
 @Controller
 @RequestMapping("/orders")
 @SessionAttributes("tacoOrder")
 public class OrderController {
-    private OrderRepository orderRepo;
+    private final OrderRepository orderRepo;
 
     public OrderController(OrderRepository orderRepo) {
         this.orderRepo = orderRepo;
@@ -33,6 +36,7 @@ public class OrderController {
         if (errors.hasErrors()) {
             return "orderForm";
         }
+        order.setPlacedAt(LocalDateTime.now(ZoneId.systemDefault()));
         orderRepo.save(order);
         log.info("Order submitted: {}", order);
         sessionStatus.setComplete();
