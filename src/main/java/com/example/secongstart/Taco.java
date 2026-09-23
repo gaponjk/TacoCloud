@@ -2,16 +2,18 @@ package com.example.secongstart;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.Data;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.ArrayList;
-import lombok.Data;
+import java.util.List;
 
 @Data
 public class Taco implements Serializable {
-    @Serial private static final long serialVersionUID = 1L;
+    @Serial
+    private static final long serialVersionUID = 1L;
     private Long id;
 
     private LocalDateTime createdAt = LocalDateTime.now(ZoneId.of("Europe/Minsk"));
@@ -22,5 +24,5 @@ public class Taco implements Serializable {
 
     @NotNull
     @Size(min = 1, message = "Add at least 1 ingredient")
-    private ArrayList<Ingredient> ingredients;
+    private List<IngredientRef> ingredients;
 }
